@@ -165,16 +165,32 @@ const handleContextAction = async (action: 'navigate' | 'close' | 'remove', item
         break
       case 'close':
         if (item.type === 'tab') {
-          await contentDataService.closeTab(item.id)
-          // 重新加载数据
-          await loadData()
+          // 先标记为已删除状态
+          markTabAsDeleted(item.id)
+
+          try {
+            // 后台执行关闭操作
+            await contentDataService.closeTab(item.id)
+          } catch (err) {
+            // 如果关闭失败，恢复状态
+            unmarkTabAsDeleted(item.id)
+            throw err
+          }
         }
         break
       case 'remove':
         if (item.type === 'bookmark') {
-          await contentDataService.removeBookmark(item.id)
-          // 重新加载数据
-          await loadData()
+          // 先标记为已删除状态
+          markBookmarkAsDeleted(item.id)
+
+          try {
+            // 后台执行删除操作
+            await contentDataService.removeBookmark(item.id)
+          } catch (err) {
+            // 如果删除失败，恢复状态
+            unmarkBookmarkAsDeleted(item.id)
+            throw err
+          }
         }
         break
     }
@@ -186,6 +202,34 @@ const handleContextAction = async (action: 'navigate' | 'close' | 'remove', item
 // 处理重试
 const handleRetry = () => {
   loadData()
+}
+
+// 标记标签页为已删除
+const markTabAsDeleted = (tabId: number) => {
+  tabs.value = tabs.value.map(tab =>
+    tab.id === tabId ? { ...tab, isDeleted: true } : tab
+  )
+}
+
+// 取消标记标签页为已删除
+const unmarkTabAsDeleted = (tabId: number) => {
+  tabs.value = tabs.value.map(tab =>
+    tab.id === tabId ? { ...tab, isDeleted: false } : tab
+  )
+}
+
+// 标记书签为已删除
+const markBookmarkAsDeleted = (bookmarkId: string) => {
+  bookmarks.value = bookmarks.value.map(bookmark =>
+    bookmark.id === bookmarkId ? { ...bookmark, isDeleted: true } : bookmark
+  )
+}
+
+// 取消标记书签为已删除
+const unmarkBookmarkAsDeleted = (bookmarkId: string) => {
+  bookmarks.value = bookmarks.value.map(bookmark =>
+    bookmark.id === bookmarkId ? { ...bookmark, isDeleted: false } : bookmark
+  )
 }
 
 // 键盘导航 - 只处理容器级别的键盘事件

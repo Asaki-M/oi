@@ -6,6 +6,7 @@ export interface Tab {
   favIconUrl?: string
   active: boolean
   windowId: number
+  isDeleted?: boolean
 }
 
 export interface Bookmark {
@@ -14,6 +15,7 @@ export interface Bookmark {
   url?: string
   parentId?: string
   children?: Bookmark[]
+  isDeleted?: boolean
 }
 
 export interface SearchData {
