@@ -1,9 +1,9 @@
-# Omni - 浏览器标签页和书签快速搜索扩展
+# Oi - 浏览器标签页和书签快速搜索扩展  
+
+`本案例实现一个标签页和收藏管理的基础版本，可根据需求增加功能`
 
 <div align="center">
-  <img src="public/logo.png" alt="Omni Logo" width="128" height="128">
-  
-  <p>一个强大的Chrome扩展，让你快速搜索和跳转到任何标签页或收藏夹</p>
+  <p>一个基于crxjs/vue/tailwindcss的Chrome扩展，让你快速搜索和跳转到任何标签页或收藏夹</p>
   
   [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](package.json)
   [![Vue](https://img.shields.io/badge/Vue-3.5.17-green.svg)](https://vuejs.org/)
@@ -126,29 +126,12 @@ src/
 - `activeTab`：获取当前活动标签页
 - `storage`：存储用户设置
 
-## 📦 构建和发布
+## 📦 构建
 
 ### 构建生产版本
 ```bash
 pnpm build
 ```
-
-### 打包发布
-构建完成后，`release/` 文件夹会自动生成 `.zip` 文件，可直接上传到Chrome Web Store。
-
-## 🤝 贡献指南
-
-欢迎提交Issue和Pull Request！
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开Pull Request
-
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
 ## 🙏 致谢
 
@@ -158,7 +141,3 @@ pnpm build
 - [CRXJS](https://crxjs.dev/) - Chrome扩展开发工具
 
 ---
-
-<div align="center">
-  Made with ❤️ by Omni Team
-</div>
