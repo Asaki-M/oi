@@ -63,7 +63,7 @@ const getButtonStyle = (categoryKey: CategoryType) => {
         <div class="text-xs font-medium text-center">{{ category.name }}</div>
 
         <!-- 计数徽章 -->
-        <div class="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 text-xs font-bold bg-red-500 text-white rounded-full border-2 border-white">
+        <div class="absolute -top-1 -right-1 flex items-center justify-center px-2 h-6 text-xs font-bold bg-red-500 text-white rounded-full border-2 border-white">
           {{ category.count }}
         </div>
       </button>
