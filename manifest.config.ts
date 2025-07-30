@@ -35,7 +35,7 @@ export default defineManifest({
         default: 'Ctrl+Shift+K',
         mac: 'Command+Shift+K',
       },
-      description: '在页面中打开Omni搜索',
+      description: '在页面中打开Oi搜索',
     },
   },
   web_accessible_resources: [
