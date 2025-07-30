@@ -46,7 +46,7 @@ class OiContentSearch {
     try {
       // 创建 iframe
       this.iframe = document.createElement('iframe')
-      this.iframe.id = 'omni-search-iframe'
+      this.iframe.id = 'oi-search-iframe'
 
       // 设置 iframe 样式 - 直接定位到页面上方
       Object.assign(this.iframe.style, {
@@ -80,7 +80,7 @@ class OiContentSearch {
       // 阻止页面滚动
       document.body.style.overflow = 'hidden'
     } catch (error) {
-      console.error('Failed to show omni search iframe:', error)
+      console.error('Failed to show oi search iframe:', error)
       this.cleanup()
     }
   }
@@ -147,17 +147,17 @@ class OiContentSearch {
 }
 
 // 初始化 - 添加错误保护
-let omniSearch: OiContentSearch | null = null
+let oiSearch: OiContentSearch | null = null
 
 try {
-  omniSearch = new OiContentSearch()
+  oiSearch = new OiContentSearch()
 } catch (error) {
   console.error('Failed to initialize oi search:', error)
 }
 
 // 页面卸载时清理
 window.addEventListener('beforeunload', () => {
-  if (omniSearch) {
-    omniSearch.destroy()
+  if (oiSearch) {
+    oiSearch.destroy()
   }
 })
