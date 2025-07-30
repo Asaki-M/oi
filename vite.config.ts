@@ -16,14 +16,24 @@ export default defineConfig({
   plugins: [
     vue(),
     tailwindcss(),
-    crx({ manifest }),
+    crx({
+      manifest,
+      // 确保content.html也被处理
+      browser: 'chrome',
+    }),
     zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        // 确保content.html被包含在构建中
+        content: 'src/content/content.html',
+      },
+    },
+  },
   server: {
     cors: {
-      origin: [
-        /chrome-extension:\/\//,
-      ],
+      origin: [/chrome-extension:\/\//],
     },
   },
 })

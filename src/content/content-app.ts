@@ -21,7 +21,7 @@ app.config.errorHandler = (err, _instance, info) => {
 app.mount('#app')
 
 // 监听来自父页面的消息
-window.addEventListener('message', event => {
+window.addEventListener('message', (event) => {
   // 这里可以处理来自父页面的消息，比如传递数据等
   if (event.data?.action === 'focus-search') {
     // 可以在这里处理聚焦搜索框的逻辑
