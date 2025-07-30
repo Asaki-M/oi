@@ -92,15 +92,7 @@ const handleSearch = (query: string) => {
 const handleItemSelect = async (item: SearchItem) => {
   try {
     await dataService.handleItemClick(item)
-
-    // 检测是否在 iframe 中
-    if (window !== window.parent) {
-      // 在 iframe 中，通知父页面关闭
-      window.parent.postMessage({ type: 'omni-close' }, '*')
-    } else {
-      // 在 popup 中，直接关闭窗口
-      window.close()
-    }
+    window.close()
   } catch (err) {
     console.error('操作失败:', err)
     // 不关闭窗口，让用户看到错误
@@ -148,14 +140,7 @@ const handleKeydown = (event: KeyboardEvent) => {
       handleCategoryChange(categories.value[nextIndex].key)
       break
     case 'Escape':
-      // 检测是否在 iframe 中
-      if (window !== window.parent) {
-        // 在 iframe 中，通知父页面关闭
-        window.parent.postMessage({ type: 'omni-close' }, '*')
-      } else {
-        // 在 popup 中，直接关闭窗口
-        window.close()
-      }
+      window.close()
       break
   }
 }
