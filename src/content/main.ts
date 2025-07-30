@@ -1,18 +1,16 @@
-import { createApp, type App } from 'vue'
-import ContentSearch from './ContentSearch.vue'
-import './tailwind-inject.css'
+// Content script for injecting iframe-based search interface
 
 class OiContentSearch {
-  private app: App | null = null
-  private container: HTMLElement | null = null
+  private iframe: HTMLIFrameElement | null = null
   private isVisible = false
+  private keydownHandler: ((event: KeyboardEvent) => void) | null = null
+  private messageHandler: ((event: MessageEvent) => void) | null = null
 
   constructor() {
     this.init()
   }
 
   private init() {
-
     // 确保在DOM加载完成后初始化
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
@@ -46,58 +44,93 @@ class OiContentSearch {
     if (this.isVisible) return
 
     try {
-      // 创建容器
-      this.container = document.createElement('div')
-      this.container.id = 'oi-search-root'
+      // 创建 iframe
+      this.iframe = document.createElement('iframe')
+      this.iframe.id = 'omni-search-iframe'
 
-      // 添加到页面
-      document.body.appendChild(this.container)
-
-      // 创建Vue应用
-      this.app = createApp(ContentSearch, {
-        onClose: () => this.hide()
+      // 设置 iframe 样式 - 直接定位到页面上方
+      Object.assign(this.iframe.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100vw',
+        height: '100vh',
+        border: 'none',
+        overflow: 'hidden',
+        zIndex: '2147483647',
       })
 
-      // 配置错误处理
-      this.app.config.errorHandler = (err, _instance, info) => {
-        console.error('Vue error:', err, info)
+      // 设置 iframe 源 - 使用专门的content页面
+      this.iframe.src = chrome.runtime.getURL('src/content/content.html')
+
+      // 监听iframe加载完成
+      this.iframe.onload = () => {
+        // 可以在这里进行额外的初始化
+        console.log('Content search iframe loaded')
       }
 
-      // 挂载应用
-      this.app.mount(this.container)
+      // 直接添加到页面
+      document.body.appendChild(this.iframe)
+
+      // 监听键盘事件
+      this.setupKeyboardListener()
 
       this.isVisible = true
 
       // 阻止页面滚动
       document.body.style.overflow = 'hidden'
     } catch (error) {
-      console.error('Failed to show oi search:', error)
+      console.error('Failed to show omni search iframe:', error)
       this.cleanup()
     }
+  }
+
+  private setupKeyboardListener() {
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        this.hide()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeydown)
+
+    // 监听来自iframe的消息
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.action === 'close-content-search') {
+        this.hide()
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+
+    // 存储事件处理器以便后续移除
+    this.keydownHandler = handleKeydown
+    this.messageHandler = handleMessage
   }
 
   private cleanup() {
     // 恢复页面滚动
     document.body.style.overflow = ''
 
-    // 销毁Vue应用
-    if (this.app) {
-      try {
-        this.app.unmount()
-      } catch (error) {
-        console.error('Error unmounting app:', error)
-      }
-      this.app = null
+    // 移除事件监听器
+    if (this.keydownHandler) {
+      document.removeEventListener('keydown', this.keydownHandler)
+      this.keydownHandler = null
     }
 
-    // 移除容器
-    if (this.container && this.container.parentNode) {
+    if (this.messageHandler) {
+      window.removeEventListener('message', this.messageHandler)
+      this.messageHandler = null
+    }
+
+    // 移除iframe
+    if (this.iframe && this.iframe.parentNode) {
       try {
-        this.container.parentNode.removeChild(this.container)
+        this.iframe.parentNode.removeChild(this.iframe)
       } catch (error) {
-        console.error('Error removing container:', error)
+        console.error('Error removing iframe:', error)
       }
-      this.container = null
+      this.iframe = null
     }
 
     this.isVisible = false

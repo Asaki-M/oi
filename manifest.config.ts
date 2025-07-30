@@ -19,28 +19,29 @@ export default defineManifest({
     },
     default_popup: 'src/popup/index.html',
   },
-  permissions: [
-    'tabs',
-    'bookmarks',
-    'activeTab',
-    'storage'
-  ],
+  permissions: ['tabs', 'bookmarks', 'activeTab', 'storage'],
   background: {
-    service_worker: 'src/background/main.ts'
+    service_worker: 'src/background/main.ts',
   },
   content_scripts: [
     {
       matches: ['<all_urls>'],
-      js: ['src/content/main.ts']
-    }
+      js: ['src/content/main.ts'],
+    },
   ],
   commands: {
-    'toggle_content_search': {
+    toggle_content_search: {
       suggested_key: {
         default: 'Ctrl+Shift+K',
-        mac: 'Command+Shift+K'
+        mac: 'Command+Shift+K',
       },
-      description: '在页面中打开Oi搜索'
-    }
-  }
+      description: '在页面中打开Omni搜索',
+    },
+  },
+  web_accessible_resources: [
+    {
+      resources: ['src/content/content.html'],
+      matches: ['<all_urls>'],
+    },
+  ],
 })
