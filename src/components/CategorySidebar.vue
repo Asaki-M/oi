@@ -42,6 +42,27 @@ const getButtonStyle = (categoryKey: CategoryType) => {
     }
   }
 }
+
+// 获取计数徽章样式
+const getBadgeStyle = (categoryKey: CategoryType) => {
+  const isActive = categoryKey === props.activeCategory
+
+  if (isActive) {
+    // 激活状态：使用主题蓝色
+    return {
+      backgroundColor: 'rgb(var(--color-primary))',
+      color: 'white',
+      borderColor: 'white'
+    }
+  } else {
+    // 非激活状态：使用次要颜色
+    return {
+      backgroundColor: 'rgb(var(--color-text-tertiary))',
+      color: 'white',
+      borderColor: 'rgb(var(--color-background-secondary))'
+    }
+  }
+}
 </script>
 
 <template>
@@ -63,7 +84,10 @@ const getButtonStyle = (categoryKey: CategoryType) => {
         <div class="text-xs font-medium text-center">{{ category.name }}</div>
 
         <!-- 计数徽章 -->
-        <div class="absolute -top-1 -right-1 flex items-center justify-center px-2 h-6 text-xs font-bold bg-red-500 text-white rounded-full border-2 border-white">
+        <div
+          class="absolute -top-1 -right-1 flex items-center justify-center px-2 h-6 text-xs font-bold rounded-full"
+          :style="getBadgeStyle(category.key)"
+        >
           {{ category.count }}
         </div>
       </button>
