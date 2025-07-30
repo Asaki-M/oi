@@ -42,5 +42,11 @@ export default defineManifest({
       },
       description: '在页面中打开Omni搜索'
     }
-  }
+  },
+  web_accessible_resources: [
+    {
+      resources: ['src/popup/index.html'],
+      matches: ['<all_urls>']
+    }
+  ]
 })
