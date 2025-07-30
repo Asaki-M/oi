@@ -6,7 +6,7 @@ const themeMode = ref<ThemeMode>('system')
 const systemPreference = ref<'light' | 'dark'>('light')
 
 // 存储键名
-const THEME_STORAGE_KEY = 'omni-theme-mode'
+const THEME_STORAGE_KEY = 'oi-theme-mode'
 
 /**
  * 主题管理 composable

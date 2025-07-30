@@ -92,15 +92,15 @@ onUnmounted(() => {
     v-if="useSimpleMode && visible && item"
     ref="menuRef"
     :style="{ left: `${x}px`, top: `${y}px` }"
-    class="omni-simple-context-menu"
+    class="oi-simple-context-menu"
   >
     <div
       v-for="option in menuOptions"
       :key="option.key"
       @click="handleMenuClick(option.key as 'navigate' | 'close' | 'remove')"
-      class="omni-simple-context-menu-item"
+      class="oi-simple-context-menu-item"
     >
-      <div :class="`omni-simple-context-menu-icon ${option.key}`">
+      <div :class="`oi-simple-context-menu-icon ${option.key}`">
         <MenuIcon :type="option.icon" />
       </div>
       <span>{{ option.label }}</span>

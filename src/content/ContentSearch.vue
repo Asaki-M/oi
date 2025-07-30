@@ -292,12 +292,12 @@ onUnmounted(() => {
 
 <template>
   <div
-    id="omni-search-overlay"
+    id="oi-search-overlay"
     @click="handleOverlayClick"
     @keydown="handleKeydown"
     tabindex="-1"
   >
-    <div id="omni-search-container" class="flex flex-col">
+    <div id="oi-search-container" class="flex flex-col">
       <!-- 头部搜索区域 -->
       <Search
         ref="searchRef"

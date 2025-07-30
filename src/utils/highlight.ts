@@ -26,7 +26,7 @@ function escapeHtml(text: string): string {
 export function highlightText(
   text: string, 
   query: string, 
-  className: string = 'omni-highlight'
+  className: string = 'oi-highlight'
 ): HighlightResult {
   if (!query || !text) {
     return {
@@ -61,7 +61,7 @@ export function highlightText(
 export function highlightMultipleText(
   text: string, 
   queries: string[], 
-  className: string = 'omni-highlight'
+  className: string = 'oi-highlight'
 ): HighlightResult {
   if (!queries.length || !text) {
     return {
@@ -104,7 +104,7 @@ export function highlightMultipleText(
 export function smartHighlight(
   text: string, 
   query: string, 
-  className: string = 'omni-highlight'
+  className: string = 'oi-highlight'
 ): HighlightResult {
   if (!query || !text) {
     return {

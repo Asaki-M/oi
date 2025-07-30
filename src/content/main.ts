@@ -2,7 +2,7 @@ import { createApp, type App } from 'vue'
 import ContentSearch from './ContentSearch.vue'
 import './tailwind-inject.css'
 
-class OmniContentSearch {
+class OiContentSearch {
   private app: App | null = null
   private container: HTMLElement | null = null
   private isVisible = false
@@ -48,7 +48,7 @@ class OmniContentSearch {
     try {
       // 创建容器
       this.container = document.createElement('div')
-      this.container.id = 'omni-search-root'
+      this.container.id = 'oi-search-root'
 
       // 添加到页面
       document.body.appendChild(this.container)
@@ -71,7 +71,7 @@ class OmniContentSearch {
       // 阻止页面滚动
       document.body.style.overflow = 'hidden'
     } catch (error) {
-      console.error('Failed to show omni search:', error)
+      console.error('Failed to show oi search:', error)
       this.cleanup()
     }
   }
@@ -114,12 +114,12 @@ class OmniContentSearch {
 }
 
 // 初始化 - 添加错误保护
-let omniSearch: OmniContentSearch | null = null
+let omniSearch: OiContentSearch | null = null
 
 try {
-  omniSearch = new OmniContentSearch()
+  omniSearch = new OiContentSearch()
 } catch (error) {
-  console.error('Failed to initialize omni search:', error)
+  console.error('Failed to initialize oi search:', error)
 }
 
 // 页面卸载时清理
