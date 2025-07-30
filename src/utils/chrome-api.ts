@@ -163,7 +163,16 @@ function getDefaultFavicon(url: string): string {
  * 检查是否有Chrome API权限
  */
 export function hasChromeAPI(): boolean {
-  return typeof chrome !== 'undefined' && 
-         chrome.tabs !== undefined && 
+  return typeof chrome !== 'undefined' &&
+         chrome.tabs !== undefined &&
          chrome.bookmarks !== undefined
+}
+
+// 主题相关类型定义
+export type ThemeMode = 'light' | 'dark' | 'system'
+
+export interface ThemeConfig {
+  mode: ThemeMode
+  systemPreference: 'light' | 'dark'
+  effectiveTheme: 'light' | 'dark'
 }

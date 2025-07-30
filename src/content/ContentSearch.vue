@@ -2,9 +2,11 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Search from '../components/Search.vue'
 import CategorySidebar from '../components/CategorySidebar.vue'
+import ThemeToggle from '../components/ThemeToggle.vue'
 import { useCategories, type CategoryType } from '../composables/useCategories'
 import { useSearch } from '../composables/useSearch'
-import ContentResultsList from '../components/ContentResultsList.vue'
+import { initGlobalTheme, cleanupGlobalTheme } from '../composables/useTheme'
+import ResultsList from '../components/ResultsList.vue'
 import { contentDataService } from '../utils/content-data-service'
 import type { Tab, Bookmark } from '../services/baseDataService'
 
@@ -272,6 +274,9 @@ const handleOverlayClick = (event: MouseEvent) => {
 
 // 生命周期
 onMounted(async () => {
+  // 初始化主题系统
+  await initGlobalTheme()
+
   // 加载数据
   await loadData()
 
@@ -280,7 +285,8 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  // 清理工作
+  // 清理主题系统
+  cleanupGlobalTheme()
 })
 </script>
 
@@ -302,7 +308,11 @@ onUnmounted(() => {
         @search="handleSearch"
         @select="handleItemSelect"
         @keydown="handleNonNavigationKeys"
-      />
+      >
+        <template #actions>
+          <ThemeToggle size="sm" />
+        </template>
+      </Search>
 
       <!-- 主内容区域 -->
       <div class="flex-1 flex overflow-hidden">
@@ -316,12 +326,13 @@ onUnmounted(() => {
         <!-- 右侧结果区域 -->
         <div class="flex-1 flex flex-col overflow-hidden">
           <!-- 结果列表 -->
-          <ContentResultsList
+          <ResultsList
             :items="filteredResults"
             :selected-index="selectedIndex"
             :is-loading="loading"
             :error="error || ''"
             :search-query="searchQuery"
+            variant="content"
             @select="handleItemSelect"
             @retry="handleRetry"
             @context-action="handleContextAction"
@@ -330,21 +341,21 @@ onUnmounted(() => {
       </div>
 
       <!-- 底部键盘提示 -->
-      <div class="flex items-center justify-center gap-4 py-3 px-4 border-t border-gray-200 bg-gray-50">
-        <div class="flex items-center gap-1 text-xs text-gray-500">
-          <kbd class="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs font-mono text-gray-700 shadow-sm">↑↓</kbd>
+      <div class="flex items-center justify-center gap-4 py-3 px-4 border-t" style="background-color: rgb(var(--color-background-secondary)); border-color: rgb(var(--color-border-primary));">
+        <div class="flex items-center gap-1 text-xs" style="color: rgb(var(--color-text-tertiary));">
+          <kbd class="px-1.5 py-0.5 rounded text-xs font-mono" style="background-color: rgb(var(--color-background)); border: 1px solid rgb(var(--color-border-secondary)); color: rgb(var(--color-text-secondary)); box-shadow: var(--shadow-sm);">↑↓</kbd>
           导航
         </div>
-        <div class="flex items-center gap-1 text-xs text-gray-500">
-          <kbd class="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs font-mono text-gray-700 shadow-sm">Enter</kbd>
+        <div class="flex items-center gap-1 text-xs" style="color: rgb(var(--color-text-tertiary));">
+          <kbd class="px-1.5 py-0.5 rounded text-xs font-mono" style="background-color: rgb(var(--color-background)); border: 1px solid rgb(var(--color-border-secondary)); color: rgb(var(--color-text-secondary)); box-shadow: var(--shadow-sm);">Enter</kbd>
           打开
         </div>
-        <div class="flex items-center gap-1 text-xs text-gray-500">
-          <kbd class="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs font-mono text-gray-700 shadow-sm">Esc</kbd>
+        <div class="flex items-center gap-1 text-xs" style="color: rgb(var(--color-text-tertiary));">
+          <kbd class="px-1.5 py-0.5 rounded text-xs font-mono" style="background-color: rgb(var(--color-background)); border: 1px solid rgb(var(--color-border-secondary)); color: rgb(var(--color-text-secondary)); box-shadow: var(--shadow-sm);">Esc</kbd>
           关闭
         </div>
-        <div class="flex items-center gap-1 text-xs text-gray-500">
-          <kbd class="px-1.5 py-0.5 bg-white border border-gray-300 rounded text-xs font-mono text-gray-700 shadow-sm">Tab</kbd>
+        <div class="flex items-center gap-1 text-xs" style="color: rgb(var(--color-text-tertiary));">
+          <kbd class="px-1.5 py-0.5 rounded text-xs font-mono" style="background-color: rgb(var(--color-background)); border: 1px solid rgb(var(--color-border-secondary)); color: rgb(var(--color-text-secondary)); box-shadow: var(--shadow-sm);">Tab</kbd>
           切换分类
         </div>
       </div>

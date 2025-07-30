@@ -1,0 +1,223 @@
+/* 主题CSS变量定义 */
+
+:root {
+  /* 基础颜色 - 浅色主题 */
+  --color-background: 255 255 255;
+  --color-background-secondary: 249 250 251;
+  --color-background-tertiary: 243 244 246;
+  --color-background-hover: 239 246 255;
+  --color-background-active: 219 234 254;
+  
+  /* 文本颜色 */
+  --color-text-primary: 17 24 39;
+  --color-text-secondary: 55 65 81;
+  --color-text-tertiary: 107 114 128;
+  --color-text-quaternary: 156 163 175;
+  --color-text-inverse: 255 255 255;
+  
+  /* 边框颜色 */
+  --color-border-primary: 229 231 235;
+  --color-border-secondary: 209 213 219;
+  --color-border-focus: 59 130 246;
+  
+  /* 品牌颜色 */
+  --color-primary: 59 130 246;
+  --color-primary-hover: 37 99 235;
+  --color-primary-light: 239 246 255;
+  --color-primary-dark: 29 78 216;
+  
+  /* 功能颜色 */
+  --color-success: 34 197 94;
+  --color-warning: 245 158 11;
+  --color-error: 239 68 68;
+  --color-info: 56 189 248;
+  
+  /* 特殊颜色 */
+  --color-amber: 245 158 11;
+  --color-amber-light: 254 243 199;
+  --color-amber-dark: 146 64 14;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* 高亮颜色 */
+  --color-highlight-bg: 254 243 199;
+  --color-highlight-text: 146 64 14;
+  
+  /* 滚动条颜色 */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(156, 163, 175, 0.4);
+  --scrollbar-thumb-hover: rgba(107, 114, 128, 0.6);
+  --scrollbar-thumb-active: rgba(75, 85, 99, 0.8);
+}
+
+/* 深色主题 */
+[data-theme="dark"] {
+  /* 基础颜色 - 深色主题 */
+  --color-background: 17 24 39;
+  --color-background-secondary: 31 41 55;
+  --color-background-tertiary: 55 65 81;
+  --color-background-hover: 30 58 138;
+  --color-background-active: 37 99 235;
+  
+  /* 文本颜色 */
+  --color-text-primary: 243 244 246;
+  --color-text-secondary: 209 213 219;
+  --color-text-tertiary: 156 163 175;
+  --color-text-quaternary: 107 114 128;
+  --color-text-inverse: 17 24 39;
+  
+  /* 边框颜色 */
+  --color-border-primary: 55 65 81;
+  --color-border-secondary: 75 85 99;
+  --color-border-focus: 96 165 250;
+  
+  /* 品牌颜色 - 深色主题下稍微调亮 */
+  --color-primary: 96 165 250;
+  --color-primary-hover: 59 130 246;
+  --color-primary-light: 30 58 138;
+  --color-primary-dark: 147 197 253;
+  
+  /* 功能颜色 - 深色主题下调整 */
+  --color-success: 74 222 128;
+  --color-warning: 251 191 36;
+  --color-error: 248 113 113;
+  --color-info: 125 211 252;
+  
+  /* 特殊颜色 */
+  --color-amber: 251 191 36;
+  --color-amber-light: 120 53 15;
+  --color-amber-dark: 254 243 199;
+  
+  /* 阴影 - 深色主题下更深 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  
+  /* 高亮颜色 - 深色主题下调整 */
+  --color-highlight-bg: 120 53 15;
+  --color-highlight-text: 254 243 199;
+  
+  /* 滚动条颜色 - 深色主题下调整 */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(107, 114, 128, 0.6);
+  --scrollbar-thumb-hover: rgba(156, 163, 175, 0.8);
+  --scrollbar-thumb-active: rgba(209, 213, 219, 0.9);
+}
+
+/* 系统主题检测 */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    /* 基础颜色 - 深色主题 */
+    --color-background: 17 24 39;
+    --color-background-secondary: 31 41 55;
+    --color-background-tertiary: 55 65 81;
+    --color-background-hover: 30 58 138;
+    --color-background-active: 37 99 235;
+    
+    /* 文本颜色 */
+    --color-text-primary: 243 244 246;
+    --color-text-secondary: 209 213 219;
+    --color-text-tertiary: 156 163 175;
+    --color-text-quaternary: 107 114 128;
+    --color-text-inverse: 17 24 39;
+    
+    /* 边框颜色 */
+    --color-border-primary: 55 65 81;
+    --color-border-secondary: 75 85 99;
+    --color-border-focus: 96 165 250;
+    
+    /* 品牌颜色 - 深色主题下稍微调亮 */
+    --color-primary: 96 165 250;
+    --color-primary-hover: 59 130 246;
+    --color-primary-light: 30 58 138;
+    --color-primary-dark: 147 197 253;
+    
+    /* 功能颜色 - 深色主题下调整 */
+    --color-success: 74 222 128;
+    --color-warning: 251 191 36;
+    --color-error: 248 113 113;
+    --color-info: 125 211 252;
+    
+    /* 特殊颜色 */
+    --color-amber: 251 191 36;
+    --color-amber-light: 120 53 15;
+    --color-amber-dark: 254 243 199;
+    
+    /* 阴影 - 深色主题下更深 */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    
+    /* 高亮颜色 - 深色主题下调整 */
+    --color-highlight-bg: 120 53 15;
+    --color-highlight-text: 254 243 199;
+    
+    /* 滚动条颜色 - 深色主题下调整 */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(107, 114, 128, 0.6);
+    --scrollbar-thumb-hover: rgba(156, 163, 175, 0.8);
+    --scrollbar-thumb-active: rgba(209, 213, 219, 0.9);
+  }
+}
+
+/* 工具类 - 使用CSS变量 */
+.bg-theme-primary {
+  background-color: rgb(var(--color-background));
+}
+
+.bg-theme-secondary {
+  background-color: rgb(var(--color-background-secondary));
+}
+
+.bg-theme-tertiary {
+  background-color: rgb(var(--color-background-tertiary));
+}
+
+.text-theme-primary {
+  color: rgb(var(--color-text-primary));
+}
+
+.text-theme-secondary {
+  color: rgb(var(--color-text-secondary));
+}
+
+.text-theme-tertiary {
+  color: rgb(var(--color-text-tertiary));
+}
+
+.border-theme-primary {
+  border-color: rgb(var(--color-border-primary));
+}
+
+.border-theme-secondary {
+  border-color: rgb(var(--color-border-secondary));
+}
+
+.shadow-theme-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-theme-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-theme-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-theme-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+.shadow-theme-2xl {
+  box-shadow: var(--shadow-2xl);
+}

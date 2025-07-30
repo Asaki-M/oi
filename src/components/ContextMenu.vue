@@ -113,13 +113,15 @@ onUnmounted(() => {
       v-if="visible && item"
       ref="menuRef"
       :style="{ left: `${x}px`, top: `${y}px` }"
-      class="fixed z-50 bg-white border border-gray-200 rounded-xl shadow-xl py-2 min-w-[140px] backdrop-blur-sm"
+      class="fixed z-50 rounded-xl py-2 min-w-[140px] backdrop-blur-sm"
+      style="background-color: rgb(var(--color-background)); border: 1px solid rgb(var(--color-border-primary)); box-shadow: var(--shadow-xl);"
     >
       <div
         v-for="option in menuOptions"
         :key="option.key"
         @click="handleMenuClick(option.key as 'navigate' | 'close' | 'remove')"
-        class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer transition-all duration-200 group"
+        class="flex items-center px-4 py-2.5 text-sm cursor-pointer transition-all duration-200 group"
+        style="color: rgb(var(--color-text-secondary));"
       >
         <div class="mr-3 flex-shrink-0" :class="option.color">
           <MenuIcon :type="option.icon" />

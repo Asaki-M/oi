@@ -10,28 +10,49 @@ interface Emits {
   (e: 'update:activeCategory', category: CategoryType): void
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 // 处理分类切换
 const handleCategoryClick = (category: CategoryType) => {
   emit('update:activeCategory', category)
 }
+
+// 获取按钮样式
+const getButtonStyle = (categoryKey: CategoryType) => {
+  const isActive = categoryKey === props.activeCategory
+
+  if (isActive) {
+    // 拟态凸起效果
+    return {
+      color: 'rgb(var(--color-primary))',
+      boxShadow: `
+        inset -2px -2px 4px rgba(255, 255, 255, 0.1),
+        inset 2px 2px 4px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.1)
+      `,
+      transform: 'translateY(-1px)'
+    }
+  } else {
+    // 默认状态
+    return {
+      color: 'rgb(var(--color-text-secondary))',
+      boxShadow: 'none',
+      transform: 'none'
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="w-20 bg-gray-50 border-r border-gray-200 py-3 overflow-y-auto relative">
+  <div class="w-20 border-r py-3 overflow-y-auto relative" style="background-color: rgb(var(--color-background-secondary)); border-color: rgb(var(--color-border-primary));">
     <div class="flex flex-col gap-1 px-2">
       <button
         v-for="category in categories"
         :key="category.key"
         @click="handleCategoryClick(category.key)"
-        :class="[
-          'flex flex-col items-center px-2 py-3 border-none bg-transparent rounded-lg cursor-pointer transition-all duration-200 text-gray-600 relative font-medium text-xs hover:bg-blue-50 hover:text-blue-600',
-          {
-            'bg-blue-100 text-blue-700 border-2 border-blue-300 shadow-sm': activeCategory === category.key
-          }
-        ]"
+        class="flex flex-col items-center px-2 py-3 border-none bg-transparent rounded-lg cursor-pointer transition-all duration-200 relative font-medium text-xs"
+        :style="getButtonStyle(category.key)"
       >
         <div class="flex items-center justify-center w-6 h-6 mb-1">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

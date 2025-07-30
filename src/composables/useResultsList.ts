@@ -122,15 +122,31 @@ export function useResultsList(
     const isActive = item.type === 'tab' && (item as TabItem).active
     const isSelected = index === selectedIndex && !item.isDeleted
 
-    return [
-      'flex items-center p-3 my-0.5 rounded-lg transition-all duration-150 border border-transparent',
-      {
-        'opacity-50 cursor-not-allowed bg-gray-50': item.isDeleted,
-        'cursor-pointer hover:bg-slate-50 hover:border-slate-200': !item.isDeleted,
-        'bg-blue-50 border-blue-500': isSelected,
-        'bg-sky-50 border-sky-400': isActive && !item.isDeleted
-      }
-    ]
+    let baseClasses = 'flex items-center p-3 my-0.5 rounded-lg transition-all duration-150 border'
+    let styleObj: Record<string, string> = {}
+
+    if (item.isDeleted) {
+      baseClasses += ' opacity-50 cursor-not-allowed'
+      styleObj.backgroundColor = 'rgb(var(--color-background-secondary))'
+      styleObj.borderColor = 'transparent'
+    } else if (isSelected) {
+      baseClasses += ' cursor-pointer'
+      styleObj.backgroundColor = 'rgb(var(--color-background-hover))'
+      styleObj.borderColor = 'rgb(var(--color-primary))'
+    } else if (isActive) {
+      baseClasses += ' cursor-pointer'
+      styleObj.backgroundColor = 'rgb(var(--color-background-hover) / 0.5)'
+      styleObj.borderColor = 'rgb(var(--color-info))'
+    } else {
+      baseClasses += ' cursor-pointer'
+      styleObj.backgroundColor = 'transparent'
+      styleObj.borderColor = 'transparent'
+    }
+
+    return {
+      class: baseClasses,
+      style: styleObj
+    }
   }
 
   // 计算标签样式和文本
@@ -139,22 +155,37 @@ export function useResultsList(
 
     if (item.isDeleted) {
       return {
-        classes: 'bg-gray-100 text-gray-400',
+        classes: 'px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wider',
+        style: {
+          backgroundColor: 'rgb(var(--color-background-tertiary))',
+          color: 'rgb(var(--color-text-quaternary))'
+        },
         text: item.type === 'tab' ? '已关闭' : '已删除'
       }
     }
 
     if (item.type === 'tab') {
       return {
-        classes: isActive
-          ? 'bg-sky-100 text-sky-800'
-          : 'bg-blue-100 text-blue-800',
+        classes: 'px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wider',
+        style: isActive
+          ? {
+              backgroundColor: 'rgb(var(--color-info) / 0.2)',
+              color: 'rgb(var(--color-info))'
+            }
+          : {
+              backgroundColor: 'rgb(var(--color-primary) / 0.2)',
+              color: 'rgb(var(--color-primary))'
+            },
         text: isActive ? '当前页' : '标签页'
       }
     }
 
     return {
-      classes: 'bg-amber-100 text-amber-800',
+      classes: 'px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wider',
+      style: {
+        backgroundColor: 'rgb(var(--color-amber) / 0.2)',
+        color: 'rgb(var(--color-amber-dark))'
+      },
       text: '收藏'
     }
   }

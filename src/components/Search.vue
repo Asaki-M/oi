@@ -78,10 +78,10 @@ defineExpose({
 </script>
 
 <template>
-  <div class="p-4 border-b border-gray-200 bg-white">
+  <div class="p-4 border-b" style="background-color: rgb(var(--color-background)); border-color: rgb(var(--color-border-primary));">
     <div class="flex items-center gap-3">
-      <div class="flex-1 relative flex items-center bg-gray-50 border-2 border-gray-200 rounded-xl transition-all duration-200 focus-within:border-blue-500 focus-within:bg-white focus-within:shadow-lg focus-within:shadow-blue-500/10">
-        <div class="px-3 text-gray-500 flex items-center">
+      <div class="flex-1 relative flex items-center border-2 rounded-xl transition-all duration-200 focus-within:shadow-lg" style="background-color: rgb(var(--color-background-secondary)); border-color: rgb(var(--color-border-primary));">
+        <div class="px-3 flex items-center" style="color: rgb(var(--color-text-tertiary))">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.35-4.35"></path>
@@ -94,12 +94,14 @@ defineExpose({
           @keydown="handleKeydown"
           type="text"
           :placeholder="placeholder"
-          class="flex-1 py-3 px-2 border-none bg-transparent text-base text-gray-900 outline-none placeholder-gray-400"
+          class="flex-1 py-3 px-2 border-none bg-transparent text-base outline-none"
+          style="color: rgb(var(--color-text-primary));"
         />
         <button
           v-if="searchQuery"
           @click="clearSearch"
-          class="p-2 mr-2 border-none bg-transparent text-gray-500 cursor-pointer rounded-md flex items-center justify-center transition-all duration-200 hover:bg-gray-100 hover:text-gray-700"
+          class="p-2 mr-2 border-none bg-transparent cursor-pointer rounded-md flex items-center justify-center transition-all duration-200"
+          style="color: rgb(var(--color-text-tertiary));"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
