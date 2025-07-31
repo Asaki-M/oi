@@ -35,19 +35,6 @@ export default defineConfig(() => {
       cors: {
         origin: [/chrome-extension:\/\//],
       },
-      plugins: [
-        vue(),
-        tailwindcss(),
-        crx({ manifest }),
-        zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` }),
-      ],
-      server: {
-        cors: {
-          origin: [
-            /chrome-extension:\/\//,
-          ],
-        },
-      },
     }
   }
 })
