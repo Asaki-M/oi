@@ -5,7 +5,6 @@ import { defineConfig } from 'vite'
 import zip from 'vite-plugin-zip-pack'
 import manifest from './manifest.config.ts'
 import { name, version } from './package.json'
-import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(() => {
   return {
@@ -16,7 +15,6 @@ export default defineConfig(() => {
     },
     plugins: [
       vue(),
-      tailwindcss(),
       crx({
         manifest,
         browser: 'chrome', // 默认是 chrome 按照chrome标准来构建
