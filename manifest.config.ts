@@ -1,9 +1,6 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 import pkg from './package.json'
 
-// 检测是否为开发模式
-const isDev = process.env.NODE_ENV !== 'production'
-
 export default defineManifest({
   manifest_version: 3,
   name: pkg.name,
@@ -43,18 +40,7 @@ export default defineManifest({
   },
   web_accessible_resources: [
     {
-      resources: isDev
-        ? [
-            'src/content/content.html',
-            'src/content/content-app.ts',
-            'src/content/content-loader.js'
-          ]
-        : [
-            'src/content/content.html',
-            'src/content/content-app.js',
-            'src/content/content-app.css',
-            'src/content/content-loader.js'
-          ],
+      resources: ['src/content/content.html'],
       matches: ['<all_urls>'],
     },
   ],
